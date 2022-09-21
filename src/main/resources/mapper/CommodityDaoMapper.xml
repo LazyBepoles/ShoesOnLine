@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ppwq.dao.CommodityDao">
+
+    <insert id="addNewCommodity" parameterType="java.util.Map">
+        <selectKey resultType="INTEGER" order="AFTER" keyProperty="params.cid">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into commodity (name, color, price, sex, tid, bid, createtime)
+        values (#{params.name}, #{params.color}, #{params.price}, #{params.sex}, #{params.tid}, #{params.bid},
+        #{params.createTime})
+    </insert>
+
+    <select id="searchImages" resultType="java.lang.String">
+        select image
+        from images
+        where cid = #{cid}
+    </select>
+
+    <resultMap id="cresult" type="commodity">
+        <id property="cid" column="ccid"/>
+        <result property="name" column="cname"/>
+        <result property="color" column="ccolor"/>
+        <result property="price" column="cprice"/>
+        <result property="discount" column="cdiscount"/>
+        <result property="sex" column="csex"/>
+        <result property="status" column="cstatus"/>
+        <result property="createTime" column="ccreateTime"/>
+        <result property="tname" column="tname"/>
+        <result property="bname" column="bname"/>
+        <collection property="images" javaType="ArrayList" column="ccid" select="searchImages"/>
+    </resultMap>
+
+    <resultMap id="detail" type="commodity">
+        <id property="cid" column="ccid"/>
+        <result property="name" column="cname"/>
+        <result property="color" column="ccolor"/>
+        <result property="price" column="cprice"/>
+        <result property="discount" column="cdiscount"/>
+        <result property="sex" column="csex"/>
+        <result property="status" column="cstatus"/>
+        <result property="createTime" column="ccreateTime"/>
+        <result property="tname" column="tname"/>
+        <result property="bname" column="bname"/>
+        <collection property="shoesSizes" ofType="shoessize">
+            <result property="sid" column="sid"/>
+            <result property="size" column="size"/>
+            <result property="stock" column="stock"/>
+        </collection>
+        <collection property="images" javaType="ArrayList" column="ccid" select="searchImages"/>
+    </resultMap>
+
+    <select id="searchCommodityByPage" resultMap="cresult">
+        select c.cid        ccid,
+               c.name       cname,
+               c.color      ccolor,
+               c.price      cprice,
+               c.discount   cdiscount,
+               c.sex        csex,
+               c.status     cstatus,
+               c.createtime ccreatetime,
+               t.name       tname,
+               b.name       bname
+        from commodity c,
+             type t,
+             brand b
+        where c.tid = t.tid
+          and c.bid = b.bid
+    </select>
+
+    <update id="updateCommodity" parameterType="commodity">
+        update commodity
+        set name     = #{name},
+            color    = #{color},
+            price    = #{price},
+            discount = #{discount},
+            sex      = #{sex}
+    </update>
+
+    <update id="updateCommodityStatus">
+        update commodity
+        set status = #{status}
+    </update>
+
+    <select id="searchDetail" resultMap="detail">
+        select c.cid        ccid,
+               c.name       cname,
+               c.color      ccolor,
+               c.price      cprice,
+               c.discount   cdiscount,
+               c.sex        csex,
+               c.status     cstatus,
+               c.createtime ccreatetime,
+               t.name       tname,
+               b.name       bname,
+               ss.sid       sid,
+               s.size       size,
+               ss.stock     stock
+        from commodity c,
+             type t,
+             brand b,
+             shoes_size ss,
+             size s
+        where c.cid = #{cid}
+          and c.tid = t.tid
+          and c.bid = b.bid
+          and c.cid = ss.cid
+          and ss.sid = s.sid
+    </select>
+
+    <select id="fuzzyQuery" resultMap="cresult">
+        select c.cid ccid,
+        c.name cname,
+        c.color ccolor,
+        c.price cprice,
+        c.discount cdiscount,
+        c.sex csex,
+        c.status cstatus,
+        c.createtime ccreatetime,
+        t.name tname,
+        b.name bname
+        from commodity c,
+        type t,
+        brand b,
+        shoes_size ss,
+        size s
+        where c.tid = t.tid
+        and c.bid = b.bid
+        and c.status != 0
+        <if test="bid != null and bid != 0">
+            and b.bid = #{bid}
+        </if>
+        <if test="tid != null and tid != 0">
+            and t.tid = #{tid}
+        </if>
+        <if test="sex != null and sex != -1">
+            and c.sex = #{sex}
+        </if>
+        <if test="color != null and color != ''">
+            and c.color = #{color}
+        </if>
+        <if test="sid != null and sid != 0">
+            and c.cid = ss.cid
+            and ss.sid = s.sid
+        </if>
+        group by c.cid
+    </select>
+
+    <insert id="addCommodityImages" parameterType="java.util.List">
+        insert into images (cid, image) values
+        <foreach collection="images" item="image" separator=",">
+            (#{cid},#{image})
+        </foreach>
+    </insert>
+
+    <delete id="deleteImage">
+        delete from images where cid = #{cid} and image = #{image}
+    </delete>
+</mapper>

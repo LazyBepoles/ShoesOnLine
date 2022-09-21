@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ppwq.dao.TypeDao">
+
+    <insert id="addNewType" parameterType="type">
+        insert into type (name)
+        VALUES (#{name});
+    </insert>
+
+    <update id="updateType" parameterType="type">
+        update type
+        set name   = #{name}
+    </update>
+
+    <select id="searchTypeByName" parameterType="java.lang.String" resultType="type">
+        select *
+        from type
+        where name like concat('%', #{name}, '%')
+    </select>
+
+    <select id="searchTypeById" parameterType="java.lang.Integer" resultType="type">
+        select *
+        from type
+        where tid = #{id}
+    </select>
+
+    <select id="searchTypeByPage" resultType="type">
+        select *
+        from type
+    </select>
+
+    <update id="updateTypeStatus">
+        update type set status = #{status}
+    </update>
+
+    <select id="searchAllType" resultType="type">
+        select * from type where status != 0
+    </select>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ppwq.dao.BrandDao">
+
+    <insert id="addNewBrand" parameterType="brand">
+        insert into brand (name)
+        VALUES (#{name});
+    </insert>
+
+    <update id="updateBrand" parameterType="brand">
+        update brand
+        set name   = #{name}
+    </update>
+
+    <select id="searchBrandByName" parameterType="java.lang.String" resultType="brand">
+        select *
+        from brand
+        where name like concat('%', #{name}, '%')
+    </select>
+
+    <select id="searchBrandById" parameterType="java.lang.Integer" resultType="brand">
+        select *
+        from brand
+        where bid = #{id}
+    </select>
+
+    <select id="searchBrandByPage" resultType="brand">
+        select *
+        from brand
+    </select>
+
+    <update id="updateBrandStatus">
+        update brand set status = #{status}
+    </update>
+
+    <select id="searchAllBrand" resultType="brand">
+        select * from brand where status != 0
+    </select>
+
+</mapper>

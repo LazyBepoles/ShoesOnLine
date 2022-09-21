@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ppwq.dao.CarDao">
+
+    <insert id="addIntoCar" parameterType="car">
+        insert into car (uid, cid, sid, color, num, price, createtime)
+        values ( #{uid}, #{cid}, #{sid}, #{color}, #{num}, #{price}
+               , #{createTime})
+    </insert>
+
+    <select id="getCar" resultType="car">
+        select c.carid      carid,
+               c.uid        uid,
+               c.cid        cid,
+               c.sid        sid,
+               c.color      color,
+               c.num        num,
+               c.createtime createtime,
+               c.checkable  checkable,
+               g.name       cname,
+               s.size       size
+        from car c,
+             commodity g,
+             size s
+        where c.uid = #{uid}
+          and c.sid = s.sid
+          and c.cid = g.cid
+    </select>
+
+    <delete id="deleteCar">
+        delete
+        from car
+        where carid = #{carid}
+    </delete>
+
+</mapper>

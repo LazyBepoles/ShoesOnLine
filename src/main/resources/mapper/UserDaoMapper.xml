@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ppwq.dao.UserDao">
+
+    <select id="searchUser" resultType="user" parameterType="java.lang.String">
+        select * from user
+        <where>
+            <if test="username != '' and username != null">
+                username like concat('%',#{username},'%')
+            </if>
+            <if test="name != '' and name != null">
+                or name like concat('%',#{name},'%')
+            </if>
+            <if test="email != '' and email != null">
+                or email like concat('%',#{email},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="searchUserExist" resultType="user" parameterType="user">
+        select * from user
+        <where>
+            <if test="username != '' and username != null">
+                username = #{username}
+            </if>
+            <if test="phone != '' and phone != null">
+                phone = #{name}
+            </if>
+            <if test="email != '' and email != null">
+                email = #{email}
+            </if>
+        </where>
+    </select>
+
+    <select id="searchUserById" resultType="user" parameterType="java.lang.Integer">
+        select *
+        from user
+        where uid = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="user">
+        update user
+        <set>
+            <if test="username != '' and username != null">
+                username = #{username},
+            </if>
+            <if test="password != '' and password != null">
+                password = #{password},
+            </if>
+            <if test="name != '' and name != null">
+                name = #{name},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="phone != '' and phone != null">
+                phone = #{phone},
+            </if>
+            <if test="email != '' and email != null">
+                email = #{email},
+            </if>
+            <if test="role != null">
+                role = #{role},
+            </if>
+        </set>
+        where uid = #{uid}
+    </update>
+
+    <insert id="register" parameterType="user">
+        insert into user
+        <if test="username != '' and username != null">
+            (username, password,createtime) VALUES (#{username},#{password},#{createTime})
+        </if>
+        <if test="phone != '' and phone != null">
+            (phone, password,createtime) VALUES (#{phone},#{password},#{createTime})
+        </if>
+        <if test="email != '' and email != null">
+            (email, password,createtime) VALUES (#{email},#{password},#{createTime})
+        </if>
+    </insert>
+
+    <select id="login" resultType="user">
+        select *
+        from user
+        where username = #{account}
+           or phone = #{account}
+           or email = #{account} and password = #{password} and purview != 0
+    </select>
+
+    <select id="searchUserByPage" resultType="user">
+        select *
+        from user
+        where role = 1
+    </select>
+
+    <update id="updateUserPurview">
+        update user set purview = #{purview}
+    </update>
+
+</mapper>

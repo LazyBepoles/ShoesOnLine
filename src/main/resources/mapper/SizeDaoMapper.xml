@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ppwq.dao.SizeDao">
+
+    <insert id="addNewSize" parameterType="java.lang.Double">
+        insert into size (size)
+        values (#{size})
+    </insert>
+
+    <delete id="deleteSize" parameterType="java.lang.Integer">
+        delete
+        from size
+        where sid = #{id}
+    </delete>
+
+    <insert id="addNewCommodity">
+        insert into shoes_size (sid, cid, stock)
+        values (#{sid}, #{cid}, #{stock})
+    </insert>
+
+    <select id="selectSize" resultType="java.lang.Integer">
+        select stock
+        from shoes_size
+        where sid = #{sid}
+          and cid = #{cid}
+    </select>
+
+    <update id="updateSizeNum">
+        update shoes_size
+        set stock=#{stock}
+        where sid = #{sid}
+          and cid = #{cid}
+    </update>
+
+</mapper>

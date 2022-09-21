@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ppwq.dao.OrderDao">
+
+    <insert id="addNewOrder" parameterType="order">
+        <selectKey resultType="INTEGER" order="AFTER" keyProperty="oid">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into `order` (ordernum, uid, aid, createtime, status,postage, price)
+        values (#{ordernum},#{uid},#{aid},#{createTime},#{status},#{postage},#{price})
+    </insert>
+
+    <insert id="addNewOrderShoes" parameterType="ordershoes">
+        insert into order_shoes (oid, cid, cname, color, price, sid, size, number)
+        VALUES (#{oid}, #{cid}, #{cname}, #{color}, #{price}, #{sid}, #{size}, #{number})
+    </insert>
+
+    <update id="updateOrderStatus" parameterType="java.util.Map">
+        update `order`
+        <set>
+            <if test="status != null">
+                status = #{params.status}
+            </if>
+            <if test="paymenttime != null and paymenttime != ''">
+                paymenttime = #{params.paymentTime}
+            </if>
+            <if test="sendtime != null sendtime != ''">
+                sendtime = #{params.sendTime}
+            </if>
+            <if test="endtime != null endtime != ''">
+                endtime = #{params.endTime}
+            </if>
+            <if test="paymethod != null">
+                paymethod = #{params.paymethod}
+            </if>
+        </set>
+        where oid = #{params.oid}
+    </update>
+
+    <resultMap id="result" type="order">
+        <id property="oid" column="oid"/>
+        <collection property="orderShoes" javaType="ArrayList" ofType="ordershoes" column="oid"
+                    select="searchAllOrder"/>
+    </resultMap>
+
+    <select id="searchOrder" resultMap="result">
+        select *
+        from `order`
+        <where>
+            <if test="uid != null and uid != -1">
+                and uid = #{uid}
+            </if>
+            <if test="status != null and status != -1">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <select id="searchAllOrder" resultType="ordershoes">
+        select *
+        from order_shoes
+        where oid = #{oid}
+    </select>
+
+</mapper>
