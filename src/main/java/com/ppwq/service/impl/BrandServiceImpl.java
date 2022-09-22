@@ -2,8 +2,8 @@ package com.ppwq.service.impl;
 
 import com.github.pagehelper.Page;
 import com.ppwq.dao.BrandDao;
+import com.ppwq.dao.CommodityDao;
 import com.ppwq.pojo.Brand;
-import com.ppwq.pojo.Type;
 import com.ppwq.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,9 @@ public class BrandServiceImpl implements BrandService {
 
     @Autowired
     private BrandDao brandDao;
+
+    @Autowired
+    private CommodityDao commodityDao;
 
     @Override
     public int addNewBrand(Brand brand) {
@@ -48,6 +51,10 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public List<Brand> searchAllBrand() {
-        return this.brandDao.searchAllBrand();
+        List<Brand> brands = this.brandDao.searchAllBrand();
+        for (Brand brand : brands ){
+            brand.setCommodities(this.commodityDao.searchByBrand(brand.getBid()));
+        }
+        return brands;
     }
 }

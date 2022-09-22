@@ -5,19 +5,34 @@
 <mapper namespace="com.ppwq.dao.AddressDao">
 
     <insert id="addNewAddress" parameterType="address">
-        insert into address (uid, name, address, phone) values (#{uid},#{name},{addrsss},#{phone})
+        insert into address (uid, name, phone, province, city, area, address)
+        values (#{uid}, #{name}, #{phone}, #{province}, #{city}, #{area}, #{address})
     </insert>
 
     <update id="updateAddress" parameterType="address">
-        update address set name = #{name},phone = #{phone},address = #{address} where aid = #{aid}
+        update address
+        set name     = #{name},
+            phone    = #{phone},
+            province = #{province},
+            city     = #{city},
+            area     = #{area},
+            address  = #{address}
+        where aid = #{aid}
     </update>
 
     <delete id="deleteAddress">
-        delete from address where aid = #{aid}
+        delete
+        from address
+        where aid = #{aid}
     </delete>
 
     <select id="getAllAddress" resultType="address">
-        select * from address where uid = #{uid}
+        select *
+        from address
+        where uid = #{uid}
     </select>
 
+    <select id="getDetailAddress"resultType="address">
+        select * from address where aid = #{aid}
+    </select>
 </mapper>

@@ -52,12 +52,21 @@ public class AddressComtroller {
     return result;
   }
 
-  @GetMapping("/getaddress")
+  @GetMapping("/getaddress/{uid}")
   public Map<String, Object> getAddress(@PathVariable int uid) {
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
     result.put("msg", "Search Success");
     result.put("data", this.addressService.getAllAddress(uid));
+    return result;
+  }
+
+  @GetMapping("/getdetail/{aid}")
+  public Map<String, Object> getDetail(@PathVariable int aid) {
+    Map<String, Object> result = new HashMap<>();
+    result.put("code", 20000);
+    result.put("msg", "Search Success");
+    result.put("data", this.addressService.getDetailAddress(aid));
     return result;
   }
 }

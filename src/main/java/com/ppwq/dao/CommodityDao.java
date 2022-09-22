@@ -25,25 +25,19 @@ public interface CommodityDao {
 
   //    Page<Commodity> searchByType(int tid);
   //
-  //    Page<Commodity> searchByBrand(int bid);
+  Page<Commodity> searchByBrand(int bid);
   //
   //    Page<Commodity> searchBySize(int sid);
   //
   //    Page<Commodity> searchBySex(int sex);
 
-  Page<Commodity> fuzzyQuery(
-      @Param("bid") int bid,
-      @Param("tid") int tid,
-      @Param("sex") int sex,
-      @Param("color") String color,
-      @Param("sid") int sid);
+  Page<Commodity> fuzzyQuery(@Param("params") Map<String, Object> params);
 
-  int addCommodityImages(@Param("images")List<String> images,@Param("cid")int cid);
+  int addCommodityImages(@Param("images") List<String> images, @Param("cid") int cid);
 
   List<String> searchImages(int cid);
 
-  int deleteImage(@Param("cid") int cid,@Param("image") String image);
+  int deleteImage(@Param("cid") int cid, @Param("image") String image);
 
-  int updateImage(@Param("images") List<String> images,@Param("cid") int cid);
-
+  int updateImage(@Param("images") List<String> images, @Param("cid") int cid);
 }

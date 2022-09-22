@@ -17,4 +17,6 @@ public interface AddressDao {
     int deleteAddress(int aid);
 
     List<Address> getAllAddress(int uid);
+
+    Address getDetailAddress(int aid);
 }

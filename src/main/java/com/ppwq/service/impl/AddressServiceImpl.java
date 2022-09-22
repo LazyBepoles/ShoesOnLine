@@ -33,4 +33,9 @@ public class AddressServiceImpl implements AddressService {
     public List<Address> getAllAddress(int uid) {
         return this.addressDao.getAllAddress(uid);
     }
+
+    @Override
+    public Address getDetailAddress(int aid) {
+        return this.addressDao.getDetailAddress(aid);
+    }
 }

@@ -18,7 +18,7 @@ public interface CommodityService {
 
   Commodity searchDetail(int cid);
 
-  Page<Commodity> fuzzyQuery(String bid, String tid, String sex, String color, int sid);
+  Page<Commodity> fuzzyQuery(Map<String, Object> params);
 
   int updateImage(List<String> images, int cid);
 

@@ -110,7 +110,7 @@
           and ss.sid = s.sid
     </select>
 
-    <select id="fuzzyQuery" resultMap="cresult">
+    <select id="fuzzyQuery" resultMap="cresult" parameterType="java.util.Map">
         select c.cid ccid,
         c.name cname,
         c.color ccolor,
@@ -129,21 +129,22 @@
         where c.tid = t.tid
         and c.bid = b.bid
         and c.status != 0
-        <if test="bid != null and bid != 0">
-            and b.bid = #{bid}
+        <if test="params.bid != 0 and params.bid != null">
+            and b.bid = #{params.bid}
         </if>
-        <if test="tid != null and tid != 0">
-            and t.tid = #{tid}
+        <if test="params.tid != 0 and params.tid != null">
+            and t.tid = #{params.tid}
         </if>
-        <if test="sex != null and sex != -1">
-            and c.sex = #{sex}
+        <if test="params.sex != -1 and params.sex !=null">
+            and c.sex = #{params.sex}
         </if>
-        <if test="color != null and color != ''">
-            and c.color = #{color}
+        <if test="params.color != null and params.color != ''">
+            and c.color = #{params.color}
         </if>
-        <if test="sid != null and sid != 0">
+        <if test="params.sid != 0 and params.sid != null">
             and c.cid = ss.cid
             and ss.sid = s.sid
+            and s.sid = #{params.sid}
         </if>
         group by c.cid
     </select>
@@ -156,6 +157,30 @@
     </insert>
 
     <delete id="deleteImage">
-        delete from images where cid = #{cid} and image = #{image}
+        delete
+        from images
+        where cid = #{cid}
+          and image = #{image}
     </delete>
+
+    <select id="searchByBrand" resultMap="cresult">
+        select c.cid        ccid,
+               c.name       cname,
+               c.color      ccolor,
+               c.price      cprice,
+               c.discount   cdiscount,
+               c.sex        csex,
+               c.status     cstatus,
+               c.createtime ccreatetime,
+               t.name       tname,
+               b.name       bname
+        from commodity c,
+             type t,
+             brand b
+        where c.tid = t.tid
+          and c.bid = b.bid
+          and b.bid = #{bid}
+          and c.status != 0
+    </select>
+
 </mapper>

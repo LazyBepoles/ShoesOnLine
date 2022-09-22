@@ -34,7 +34,8 @@ public class CommodityServiceImpl implements CommodityService {
     for (Map.Entry<String, Object> entry : map.entrySet()) {
       this.sizeDao.addNewCommodity(entry.getKey(), (Integer) params.get("cid"), entry.getValue());
     }
-    this.commodityDao.addCommodityImages((List<String>) params.get("images"),(Integer) params.get("cid"));
+    this.commodityDao.addCommodityImages(
+        (List<String>) params.get("images"), (Integer) params.get("cid"));
     return result;
   }
 
@@ -60,32 +61,41 @@ public class CommodityServiceImpl implements CommodityService {
 
   @Override
   @Transactional
-  public Page<Commodity> fuzzyQuery(String bname, String tname, String sexname, String color, int sid) {
+  public Page<Commodity> fuzzyQuery(Map<String, Object> params) {
     Brand brand = new Brand();
     Type type = new Type();
-    if (bname == "" || bname == null){
-      brand.setBid(0);
-    }else {
-      brand = this.brandDao.searchBrandByName(bname);
-    }
-    if (tname == "" || tname == null){
-      type.setTid(0);
-    }else {
-      type = this.typeDao.searchTypeByName(tname);
-    }
+    String sexname;
     int sex = -1;
-    if (sexname.contains("男"))sex = 1;
-    else if (sexname.contains("女"))sex = 0;
-    return this.commodityDao.fuzzyQuery(brand.getBid(),type.getTid(),sex,color,sex);
+    if (params.get("fuzzy") != null) {
+      brand = this.brandDao.searchBrandByName((String) params.get("fuzzy"));
+      type = this.typeDao.searchTypeByName((String) params.get("fuzzy"));
+      sexname = (String) params.get("fuzzy");
+      if (sexname.contains("男")) sex = 1;
+      else if (sexname.contains("女")) sex = 0;
+    }
+    if (params.get("bid") != null) {
+      brand = this.brandDao.searchBrandById((Integer) params.get("bid"));
+    }
+    if (params.get("tid") != null) {
+      type = this.typeDao.searchTypeById((Integer) params.get("tid"));
+    }
+    if (brand != null) {
+      params.put("bid", brand.getBid());
+    }
+    if (type != null) {
+      params.put("tid", type.getTid());
+    }
+    params.put("sex", sex);
+    return this.commodityDao.fuzzyQuery(params);
   }
 
   @Override
   public int updateImage(List<String> images, int cid) {
-    return this.commodityDao.addCommodityImages(images,cid);
+    return this.commodityDao.addCommodityImages(images, cid);
   }
 
   @Override
   public int deleteImage(int cid, String image) {
-    return this.commodityDao.deleteImage(cid,image);
+    return this.commodityDao.deleteImage(cid, image);
   }
 }

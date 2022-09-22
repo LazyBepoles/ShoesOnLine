@@ -110,12 +110,7 @@ public class CommodityController {
     result.put("msg", "Search Success");
     result.put(
         "data",
-        this.commodityService.fuzzyQuery(
-            (String) params.get("bid"),
-            (String) params.get("tid"),
-            (String) params.get("sex"),
-            (String) params.get("color"),
-            (Integer) params.get("sid")));
+        this.commodityService.fuzzyQuery(params));
     return result;
   }
 

@@ -13,6 +13,9 @@ public class Address {
     private Integer uid;
     private String name;
     private String phone;
+    private String province;
+    private String city;
+    private String area;
     private String address;
 
 }
