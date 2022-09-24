@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Mapper
@@ -16,8 +17,7 @@ public interface UserDao {
 
   int updateUser(User user);
 
-  Page<User> searchUser(
-      @Param("username") String username, @Param("name") String name, @Param("email") String email);
+  Page<User> searchUser(@Param("params") Map<String, Object> params);
 
   List<User> searchUserExist(User user);
 
@@ -27,5 +27,5 @@ public interface UserDao {
 
   Page<User> searchUserByPage();
 
-  int updateUserPurview(@Param("purview") int purview,@Param("uid") int uid);
+  int updateUserPurview(@Param("purview") int purview, @Param("uid") int uid);
 }

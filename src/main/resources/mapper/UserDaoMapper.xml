@@ -4,17 +4,17 @@
 
 <mapper namespace="com.ppwq.dao.UserDao">
 
-    <select id="searchUser" resultType="user" parameterType="java.lang.String">
+    <select id="searchUser" resultType="user" parameterType="java.util.Map">
         select * from user
         <where>
-            <if test="username != '' and username != null">
-                username like concat('%',#{username},'%')
+            <if test="params.username != '' and params.username != null">
+                username like concat('%',#{params.username},'%')
             </if>
-            <if test="name != '' and name != null">
-                or name like concat('%',#{name},'%')
+            <if test="params.name != '' and params.name != null">
+                or name like concat('%',#{params.name},'%')
             </if>
-            <if test="email != '' and email != null">
-                or email like concat('%',#{email},'%')
+            <if test="params.email != '' and params.email != null">
+                or email like concat('%',#{params.email},'%')
             </if>
         </where>
     </select>

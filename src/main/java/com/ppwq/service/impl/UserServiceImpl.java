@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -15,8 +16,8 @@ public class UserServiceImpl implements UserService {
   @Autowired private UserDao userDao;
 
   @Override
-  public Page<User> searchUser(String username, String name, String email) {
-    return this.userDao.searchUser(username, name, email);
+  public Page<User> searchUser(Map<String, Object> params) {
+    return this.userDao.searchUser(params);
   }
 
   @Override

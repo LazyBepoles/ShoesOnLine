@@ -16,12 +16,12 @@ public class UserController {
   @Autowired private UserService userService;
 
   @GetMapping("/getuser")
-  public Map<String, Object> getUser(@RequestBody Map<String, Integer> params){
-    PageHelper.startPage(params.get("pageNum"),params.get("pageSize"));
+  public Map<String, Object> getUser(@RequestBody Map<String, Integer> params) {
+    PageHelper.startPage(params.get("pageNum"), params.get("pageSize"));
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
     result.put("msg", "Search Success");
-    result.put("data",this.userService.searchUserByPage());
+    result.put("data", this.userService.searchUserByPage());
     return result;
   }
 
@@ -31,12 +31,7 @@ public class UserController {
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
     result.put("msg", "Search Result");
-    result.put(
-        "data",
-        this.userService.searchUser(
-            (String) params.get("username"),
-            (String) params.get("name"),
-            (String) params.get("email")));
+    result.put("data", this.userService.searchUser(params));
     return result;
   }
 
@@ -76,7 +71,7 @@ public class UserController {
   }
 
   @GetMapping("/login")
-  public Map<String, Object> login(@RequestBody Map<String,String> params) {
+  public Map<String, Object> login(@RequestBody Map<String, String> params) {
     Map<String, Object> result = new HashMap<>();
     String token = null;
     User user = this.userService.login(params.get("account"), params.get("password"));
@@ -94,12 +89,12 @@ public class UserController {
   }
 
   @PostMapping("/updateuserpurview")
-  public Map<String, Object> updatePurview(int purview,int uid){
+  public Map<String, Object> updatePurview(int purview, int uid) {
     Map<String, Object> result = new HashMap<>();
-    if (this.userService.updateUserPurview(purview,uid)!=0){
+    if (this.userService.updateUserPurview(purview, uid) != 0) {
       result.put("code", 20000);
       result.put("msg", "Update Success");
-    }else {
+    } else {
       result.put("code", 50000);
       result.put("msg", "Update Error");
     }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ppwq.dao.SalesDao">
+
+    <select id="hotBrand" resultType="sales">
+        select b.name name, SUM(os.number) num
+        from order_shoes os,
+             commodity c,
+             brand b
+        where c.cid = os.cid
+          and c.bid = b.bid
+        group by name
+        order by num desc
+    </select>
+
+    <select id="hotType" resultType="sales">
+        select t.name name, SUM(os.number) num
+        from order_shoes os,
+             commodity c,
+             type t
+        where c.cid = os.cid
+          and c.tid = t.tid
+        group by name
+        order by num desc
+    </select>
+
+    <select id="hotSize" resultType="sales">
+        select os.size name, SUM(os.number) num
+        from order_shoes os
+        group by name
+        order by num desc
+    </select>
+
+    <select id="hotCommodity" resultType="sales">
+        select os.cname name, SUM(os.number) num
+        from order_shoes os
+        group by name
+        order by num desc
+    </select>
+
+    <select id="hotColor" resultType="sales">
+        select os.color name, SUM(os.number) num
+        from order_shoes os
+        group by name
+        order by num desc
+    </select>
+
+</mapper>

@@ -2,12 +2,13 @@ package com.ppwq.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ppwq.util.TokenUtil;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@Component
+@Component
 public class TokenInterceptor implements HandlerInterceptor {
 
   @Override
