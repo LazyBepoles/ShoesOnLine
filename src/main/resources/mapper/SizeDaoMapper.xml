@@ -4,7 +4,7 @@
 
 <mapper namespace="com.ppwq.dao.SizeDao">
 
-    <insert id="addNewSize" parameterType="java.lang.Double">
+    <insert id="addNewSize" parameterType="size">
         insert into size (size)
         values (#{size})
     </insert>

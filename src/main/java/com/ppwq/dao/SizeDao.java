@@ -1,5 +1,6 @@
 package com.ppwq.dao;
 
+import com.ppwq.pojo.Size;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface SizeDao {
 
-  int addNewSize(Double size);
+  int addNewSize(Size size);
 
   int deleteSize(int id);
 

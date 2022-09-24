@@ -23,13 +23,7 @@ public interface CommodityDao {
 
   Commodity searchDetail(int cid);
 
-  //    Page<Commodity> searchByType(int tid);
-  //
   Page<Commodity> searchByBrand(int bid);
-  //
-  //    Page<Commodity> searchBySize(int sid);
-  //
-  //    Page<Commodity> searchBySex(int sex);
 
   Page<Commodity> fuzzyQuery(@Param("params") Map<String, Object> params);
 

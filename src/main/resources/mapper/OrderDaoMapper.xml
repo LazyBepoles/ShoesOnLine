@@ -27,7 +27,7 @@
                 paymenttime = #{params.paymentTime}
             </if>
             <if test="params.sendTime != null params.sendTime != ''">
-                sendtime = #{params.sendTime}
+                sendtime = #{params.sendTime},logistics = #{params.logistics}
             </if>
             <if test="params.endTime != null params.endTime != ''">
                 endtime = #{params.endTime}
