@@ -41,7 +41,7 @@ public class BrandController {
   }
 
   @GetMapping("/searchbrand")
-  public Map<String, Object> searchBrandByName(@RequestBody Map<String,Object> params) {
+  public Map<String, Object> searchBrandByName(@RequestBody Map<String, Object> params) {
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
     result.put("msg", "Search Success");
@@ -59,8 +59,8 @@ public class BrandController {
   }
 
   @GetMapping("/getbrand")
-  public Map<String, Object> searchBrandByPage(@RequestBody Map<String,Integer> params) {
-    PageHelper.startPage(params.get("pageNum"),params.get("pageSize"));
+  public Map<String, Object> searchBrandByPage(@RequestBody Map<String, Integer> params) {
+    PageHelper.startPage(params.get("pageNum"), params.get("pageSize"));
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
     result.put("msg", "Search Success");
@@ -69,12 +69,12 @@ public class BrandController {
   }
 
   @PostMapping("/updatebrandstatus")
-  public Map<String, Object> updateStatus(int status){
+  public Map<String, Object> updateStatus(int status, int bid) {
     Map<String, Object> result = new HashMap<>();
-    if (this.brandService.updateBrandStatus(status)!=0){
+    if (this.brandService.updateBrandStatus(status, bid) != 0) {
       result.put("code", 20000);
       result.put("msg", "Update Success");
-    }else {
+    } else {
       result.put("code", 50000);
       result.put("msg", "Update Error");
     }

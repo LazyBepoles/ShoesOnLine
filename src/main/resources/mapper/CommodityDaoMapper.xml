@@ -77,11 +77,12 @@
             price    = #{price},
             discount = #{discount},
             sex      = #{sex}
+        where cid = #{cid}
     </update>
 
     <update id="updateCommodityStatus">
         update commodity
-        set status = #{status}
+        set status = #{status} where cid = #{cid}
     </update>
 
     <select id="searchDetail" resultMap="detail">

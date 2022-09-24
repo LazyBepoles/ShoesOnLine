@@ -19,7 +19,7 @@ public interface CommodityDao {
 
   int updateCommodity(Commodity commodity);
 
-  int updateCommodityStatus(int status);
+  int updateCommodityStatus(@Param("status") int status, @Param("cid") int cid);
 
   Commodity searchDetail(int cid);
 

@@ -96,7 +96,7 @@
     </select>
 
     <update id="updateUserPurview">
-        update user set purview = #{purview}
+        update user set purview = #{purview} where uid = #{uid}
     </update>
 
 </mapper>

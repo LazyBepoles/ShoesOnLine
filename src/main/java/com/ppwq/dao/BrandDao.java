@@ -3,6 +3,7 @@ package com.ppwq.dao;
 import com.github.pagehelper.Page;
 import com.ppwq.pojo.Brand;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface BrandDao {
 
   Page<Brand> searchBrandByPage();
 
-  int updateBrandStatus(int status);
+  int updateBrandStatus(@Param("status") int status, @Param("bid") int bid);
 
   List<Brand> searchAllBrand();
 }

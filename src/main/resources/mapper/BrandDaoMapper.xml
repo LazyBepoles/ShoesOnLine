@@ -11,7 +11,8 @@
 
     <update id="updateBrand" parameterType="brand">
         update brand
-        set name   = #{name}
+        set name = #{name}
+        where bid = #{bid}
     </update>
 
     <select id="searchBrandByName" parameterType="java.lang.String" resultType="brand">
@@ -32,11 +33,15 @@
     </select>
 
     <update id="updateBrandStatus">
-        update brand set status = #{status}
+        update brand
+        set status = #{status}
+        where bid = #{bid}
     </update>
 
     <select id="searchAllBrand" resultType="brand">
-        select * from brand where status != 0
+        select *
+        from brand
+        where status != 0
     </select>
 
 </mapper>

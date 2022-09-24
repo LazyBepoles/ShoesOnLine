@@ -27,6 +27,19 @@ public class CarController {
     return result;
   }
 
+  @PostMapping("/updatecar")
+  public Map<String, Object> updateCar(@RequestBody Car car) {
+    Map<String, Object> result = new HashMap<>();
+    if (this.carService.updateCar(car) != 0) {
+      result.put("code", 20000);
+      result.put("msg", "Update Success");
+    } else {
+      result.put("code", 50000);
+      result.put("msg", "Update Error");
+    }
+    return result;
+  }
+
   @GetMapping("/getcar")
   public Map<String, Object> getCar(@RequestBody Map<String, Object> params) {
     PageHelper.startPage((Integer) params.get("pageNum"), (Integer) params.get("pageSize"));
@@ -37,10 +50,10 @@ public class CarController {
     return result;
   }
 
-  @PostMapping("/deletecar/{id}")
-  public Map<String, Object> getCar(@PathVariable int id) {
+  @PostMapping("/deletecar/{carid}")
+  public Map<String, Object> deleteCar(@PathVariable int carid) {
     Map<String, Object> result = new HashMap<>();
-    if (this.carService.deleteCar(id) != 0) {
+    if (this.carService.deleteCar(carid) != 0) {
       result.put("code", 20000);
       result.put("msg", "Delete Success");
     } else {

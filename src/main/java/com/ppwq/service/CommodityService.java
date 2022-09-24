@@ -14,7 +14,7 @@ public interface CommodityService {
 
   int updateCommodity(Commodity commodity);
 
-  int updateCommodityStatus(int status);
+  int updateCommodityStatus(int status,int cid);
 
   Commodity searchDetail(int cid);
 

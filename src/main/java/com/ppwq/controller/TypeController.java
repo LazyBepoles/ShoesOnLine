@@ -69,9 +69,9 @@ public class TypeController {
   }
 
   @PostMapping("/updatetypestatus")
-  public Map<String, Object> updateStatus(int status){
+  public Map<String, Object> updateStatus(int status,int tid){
     Map<String, Object> result = new HashMap<>();
-    if (this.typeService.updateTypeStatus(status)!=0){
+    if (this.typeService.updateTypeStatus(status,tid)!=0){
       result.put("code", 20000);
       result.put("msg", "Update Success");
     }else {

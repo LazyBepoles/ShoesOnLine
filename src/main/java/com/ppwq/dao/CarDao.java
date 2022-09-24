@@ -15,6 +15,6 @@ public interface CarDao {
 
     int deleteCar(int carid);
 
-
+    int updateCar(Car car);
 
 }

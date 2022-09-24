@@ -94,9 +94,9 @@ public class UserController {
   }
 
   @PostMapping("/updateuserpurview")
-  public Map<String, Object> updatePurview(int purview){
+  public Map<String, Object> updatePurview(int purview,int uid){
     Map<String, Object> result = new HashMap<>();
-    if (this.userService.updateUserPurview(purview)!=0){
+    if (this.userService.updateUserPurview(purview,uid)!=0){
       result.put("code", 20000);
       result.put("msg", "Update Success");
     }else {

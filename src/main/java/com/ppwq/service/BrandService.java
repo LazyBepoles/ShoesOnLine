@@ -17,7 +17,7 @@ public interface BrandService {
 
   Page<Brand> searchBrandByPage();
 
-  int updateBrandStatus(int status);
+  int updateBrandStatus(int status,int bid);
 
   List<Brand> searchAllBrand();
 }

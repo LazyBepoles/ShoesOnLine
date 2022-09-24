@@ -45,8 +45,8 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public int updateBrandStatus(int status) {
-        return this.brandDao.updateBrandStatus(status);
+    public int updateBrandStatus(int status,int bid) {
+        return this.brandDao.updateBrandStatus(status,bid);
     }
 
     @Override

@@ -17,7 +17,7 @@ public interface TypeService {
 
   Page<Type> searchTypeByPage();
 
-  int updateTypeStatus(int status);
+  int updateTypeStatus(int status,int tid);
 
   List<Type> searchAllType();
 }

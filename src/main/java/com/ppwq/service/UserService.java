@@ -17,5 +17,5 @@ public interface UserService {
 
   Page<User> searchUserByPage();
 
-  int updateUserPurview(int purview);
+  int updateUserPurview(int purview,int uid);
 }

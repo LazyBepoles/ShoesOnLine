@@ -29,4 +29,9 @@ public class CarServiceImpl implements CarService {
   public int deleteCar(int carid) {
     return this.deleteCar(carid);
   }
+
+  @Override
+  public int updateCar(Car car) {
+    return this.carDao.updateCar(car);
+  }
 }

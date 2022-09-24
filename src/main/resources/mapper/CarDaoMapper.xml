@@ -5,9 +5,9 @@
 <mapper namespace="com.ppwq.dao.CarDao">
 
     <insert id="addIntoCar" parameterType="car">
-        insert into car (uid, cid, sid, color, num, price, createtime)
+        insert into car (uid, cid, sid, color, num, price, createtime, image)
         values ( #{uid}, #{cid}, #{sid}, #{color}, #{num}, #{price}
-               , #{createTime})
+               , #{createTime}, #{image})
     </insert>
 
     <select id="getCar" resultType="car">
@@ -20,7 +20,8 @@
                c.createtime createtime,
                c.checkable  checkable,
                g.name       cname,
-               s.size       size
+               s.size       size,
+               c.image      cimage
         from car c,
              commodity g,
              size s
@@ -34,5 +35,15 @@
         from car
         where carid = #{carid}
     </delete>
+
+    <update id="updateCar" parameterType="car">
+        update car
+        set sid   = #{sid},
+            color = #{color},
+            num   = #{num},
+            price = #{price},
+            checkable = #{checkable}
+        where carid = #{carid}
+    </update>
 
 </mapper>

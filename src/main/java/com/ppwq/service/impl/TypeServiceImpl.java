@@ -40,8 +40,8 @@ public class TypeServiceImpl implements TypeService {
   }
 
   @Override
-  public int updateTypeStatus(int status) {
-    return this.typeDao.updateTypeStatus(status);
+  public int updateTypeStatus(int status,int tid) {
+    return this.typeDao.updateTypeStatus(status,tid);
   }
 
   @Override

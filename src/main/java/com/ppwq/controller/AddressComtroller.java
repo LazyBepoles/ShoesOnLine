@@ -29,7 +29,7 @@ public class AddressComtroller {
   @PostMapping("/updateaddress")
   public Map<String, Object> updateAddress(@RequestBody Address address) {
     Map<String, Object> result = new HashMap<>();
-    if (this.addressService.addNewAddress(address) != 0) {
+    if (this.addressService.updateAddress(address) != 0) {
       result.put("code", 20000);
       result.put("msg", "Update Success");
     } else {
@@ -39,7 +39,7 @@ public class AddressComtroller {
     return result;
   }
 
-  @PostMapping("/delete/{aid}")
+  @PostMapping("/deleteaddress/{aid}")
   public Map<String, Object> deleteAddress(@PathVariable int aid) {
     Map<String, Object> result = new HashMap<>();
     if (this.addressService.deleteAddress(aid) != 0) {
@@ -61,7 +61,7 @@ public class AddressComtroller {
     return result;
   }
 
-  @GetMapping("/getdetail/{aid}")
+  @GetMapping("/getaddressdetail/{aid}")
   public Map<String, Object> getDetail(@PathVariable int aid) {
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);

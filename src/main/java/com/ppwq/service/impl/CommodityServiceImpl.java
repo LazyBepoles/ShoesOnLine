@@ -50,8 +50,8 @@ public class CommodityServiceImpl implements CommodityService {
   }
 
   @Override
-  public int updateCommodityStatus(int status) {
-    return this.commodityDao.updateCommodityStatus(status);
+  public int updateCommodityStatus(int status,int cid) {
+    return this.commodityDao.updateCommodityStatus(status,cid);
   }
 
   @Override

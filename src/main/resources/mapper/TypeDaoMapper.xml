@@ -11,7 +11,7 @@
 
     <update id="updateType" parameterType="type">
         update type
-        set name   = #{name}
+        set name   = #{name} where tid = #{tid}
     </update>
 
     <select id="searchTypeByName" parameterType="java.lang.String" resultType="type">
@@ -32,7 +32,7 @@
     </select>
 
     <update id="updateTypeStatus">
-        update type set status = #{status}
+        update type set status = #{status} where tid = #{tid}
     </update>
 
     <select id="searchAllType" resultType="type">

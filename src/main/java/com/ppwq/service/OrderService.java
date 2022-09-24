@@ -9,7 +9,11 @@ public interface OrderService {
 
     int addNewOrder(Map<String, Object> params);
 
-    Page<Order> searchOrder(int uid,int status);
+    Page<Order> searchOrder(Map<String, Object> params);
 
     int updateOrderStatus(Map<String,Object> params);
+
+    Order getDetail(int oid);
+
+    Page<Order> newOrder();
 }

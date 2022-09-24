@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public int updateUserPurview(int purview) {
-    return this.userDao.updateUserPurview(purview);
+  public int updateUserPurview(int purview,int uid) {
+    return this.userDao.updateUserPurview(purview,uid);
   }
 }

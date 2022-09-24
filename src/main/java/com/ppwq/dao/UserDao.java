@@ -27,5 +27,5 @@ public interface UserDao {
 
   Page<User> searchUserByPage();
 
-  int updateUserPurview(int purview);
+  int updateUserPurview(@Param("purview") int purview,@Param("uid") int uid);
 }

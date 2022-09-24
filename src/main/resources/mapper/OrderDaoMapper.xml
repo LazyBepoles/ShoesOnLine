@@ -13,26 +13,26 @@
     </insert>
 
     <insert id="addNewOrderShoes" parameterType="ordershoes">
-        insert into order_shoes (oid, cid, cname, color, price, sid, size, number)
-        VALUES (#{oid}, #{cid}, #{cname}, #{color}, #{price}, #{sid}, #{size}, #{number})
+        insert into order_shoes (oid, cid, cname, color, price, sid, size, number,image)
+        VALUES (#{oid}, #{cid}, #{cname}, #{color}, #{price}, #{sid}, #{size}, #{number},#{image})
     </insert>
 
     <update id="updateOrderStatus" parameterType="java.util.Map">
         update `order`
         <set>
-            <if test="status != null">
+            <if test="params.status != null">
                 status = #{params.status}
             </if>
-            <if test="paymenttime != null and paymenttime != ''">
+            <if test="params.paymentTime != null and params.paymentTime != ''">
                 paymenttime = #{params.paymentTime}
             </if>
-            <if test="sendtime != null sendtime != ''">
+            <if test="params.sendTime != null params.sendTime != ''">
                 sendtime = #{params.sendTime}
             </if>
-            <if test="endtime != null endtime != ''">
+            <if test="params.endTime != null params.endTime != ''">
                 endtime = #{params.endTime}
             </if>
-            <if test="paymethod != null">
+            <if test="params.paymethod != null">
                 paymethod = #{params.paymethod}
             </if>
         </set>
@@ -45,15 +45,15 @@
                     select="searchAllOrder"/>
     </resultMap>
 
-    <select id="searchOrder" resultMap="result">
+    <select id="searchOrder" resultMap="result" parameterType="java.util.Map">
         select *
         from `order`
         <where>
-            <if test="uid != null and uid != -1">
-                and uid = #{uid}
+            <if test="params.uid != null and params.uid != -1">
+                and uid = #{params.uid}
             </if>
-            <if test="status != null and status != -1">
-                and status = #{status}
+            <if test="params.status != null and params.status != -1">
+                and status = #{params.status}
             </if>
         </where>
     </select>
@@ -62,6 +62,14 @@
         select *
         from order_shoes
         where oid = #{oid}
+    </select>
+
+    <select id="getDetail" resultMap="result">
+        select * from `order` where oid = #{oid}
+    </select>
+
+    <select id="newOrder" resultType="order">
+        select * from `order`
     </select>
 
 </mapper>

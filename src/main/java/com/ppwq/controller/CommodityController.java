@@ -68,9 +68,9 @@ public class CommodityController {
   }
 
   @PostMapping("/updatecommoditystatus")
-  public Map<String, Object> updateStatus(int status) {
+  public Map<String, Object> updateStatus(int status,int cid) {
     Map<String, Object> result = new HashMap<>();
-    if (this.commodityService.updateCommodityStatus(status) != 0) {
+    if (this.commodityService.updateCommodityStatus(status,cid) != 0) {
       result.put("code", 20000);
       result.put("msg", "Update Success");
     } else {

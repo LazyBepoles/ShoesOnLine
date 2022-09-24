@@ -19,7 +19,9 @@ public interface OrderDao {
 
     int updateOrderStatus(@Param("params")Map<String,Object> params);
 
-    Page<Order> searchOrder(@Param("uid") int uid,@Param("status") int status);
+    Page<Order> searchOrder(@Param("params") Map<String,Object> params);
 
+    Order getDetail(int oid);
 
+    Page<Order> newOrder();
 }

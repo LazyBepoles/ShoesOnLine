@@ -32,7 +32,7 @@
         where uid = #{uid}
     </select>
 
-    <select id="getDetailAddress"resultType="address">
+    <select id="getDetailAddress" resultType="address">
         select * from address where aid = #{aid}
     </select>
 </mapper>

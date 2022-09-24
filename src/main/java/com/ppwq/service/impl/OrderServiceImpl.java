@@ -54,13 +54,37 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
-  public Page<Order> searchOrder(int uid,int status) {
-    return this.orderDao.searchOrder(uid,status);
+  public Page<Order> searchOrder(Map<String, Object> params) {
+    return this.orderDao.searchOrder(params);
   }
 
   @Override
   public int updateOrderStatus(Map<String, Object> params) {
-    params.put("sendTime",new Date());
+    if (params.get("paymethod")!=null){
+      params.put("paymentTime",new Date());
+      params.put("status",20);
+    }else if(params.get("send")!=null){
+      params.put("sendTime",new Date());
+      params.put("status",30);
+    }else if (params.get("complete")!=null){
+      params.put("endTime",new Date());
+      params.put("status",40);
+    }else if (params.get("cancle")!=null){
+      params.put("endTime",new Date());
+      params.put("status",0);
+    }else if(params.get("refund")!=null){
+      params.put("status",50);
+    }
     return this.orderDao.updateOrderStatus(params);
+  }
+
+  @Override
+  public Order getDetail(int oid) {
+    return this.orderDao.getDetail(oid);
+  }
+
+  @Override
+  public Page<Order> newOrder() {
+    return this.orderDao.newOrder();
   }
 }
