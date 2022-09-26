@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -47,7 +44,11 @@ public class OrderServiceImpl implements OrderService {
         this.sizeDao.updateSizeNum(shoes.getSid(), shoes.getCid(), stock);
       } else return 0;
       if (params.get("carid") != null) {
-        this.carDao.deleteCar((Integer) params.get("carid"));
+        Map<String,Object> pmap = new HashMap<>();
+        pmap.put("uid",order.getUid());
+        pmap.put("cid",shoes.getCid());
+        pmap.put("sid",shoes.getSid());
+        this.carDao.deleteOrderCar(pmap);
       }
     }
     return result;
@@ -60,20 +61,27 @@ public class OrderServiceImpl implements OrderService {
 
   @Override
   public int updateOrderStatus(Map<String, Object> params) {
-    if (params.get("paymethod")!=null){
-      params.put("paymentTime",new Date());
-      params.put("status",20);
-    }else if(params.get("send")!=null){
-      params.put("sendTime",new Date());
-      params.put("status",30);
-    }else if (params.get("complete")!=null){
-      params.put("endTime",new Date());
-      params.put("status",40);
-    }else if (params.get("cancle")!=null){
-      params.put("endTime",new Date());
-      params.put("status",0);
-    }else if(params.get("refund")!=null){
-      params.put("status",50);
+    if (params.get("paymethod") != null) {
+      params.put("paymentTime", new Date());
+      params.put("status", 20);
+    } else if (params.get("send") != null) {
+      params.put("sendTime", new Date());
+      params.put("status", 30);
+    } else if (params.get("complete") != null) {
+      params.put("endTime", new Date());
+      params.put("status", 40);
+    } else if (params.get("cancle") != null) {
+      params.put("endTime", new Date());
+      params.put("status", 0);
+      List<OrderShoes> orderShoes =
+          JSONArray.parseArray(JSONArray.toJSONString(params.get("commodities")), OrderShoes.class);
+      for (OrderShoes shoes : orderShoes) {
+        int stock = this.sizeDao.selectSize(shoes.getSid(), shoes.getCid());
+        stock = stock + shoes.getNumber();
+        this.sizeDao.updateSizeNum(shoes.getSid(), shoes.getCid(), stock);
+      }
+    } else if (params.get("refund") != null) {
+      params.put("status", 50);
     }
     return this.orderDao.updateOrderStatus(params);
   }
@@ -84,7 +92,12 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
-  public Page<Order> newOrder() {
-    return this.orderDao.newOrder();
+  public Page<Order> noSendOrder() {
+    return this.orderDao.noSendOrder();
+  }
+
+  @Override
+  public Page<Order> refund() {
+    return this.orderDao.refund();
   }
 }

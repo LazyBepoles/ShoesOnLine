@@ -53,4 +53,12 @@ public class UserServiceImpl implements UserService {
   public int updateUserPurview(int purview,int uid) {
     return this.userDao.updateUserPurview(purview,uid);
   }
+
+  @Override
+  public int updatePassword(Map<String, Object> params) {
+    User user = this.userDao.searchUserById((Integer) params.get("uid"));
+    if (params.get("oldpassword").equals(user.getPassword())){
+      return this.userDao.updatePassword(params);
+    }else return 0;
+  }
 }

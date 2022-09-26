@@ -89,9 +89,22 @@ public class UserController {
   }
 
   @PostMapping("/updateuserpurview")
-  public Map<String, Object> updatePurview(int purview, int uid) {
+  public Map<String, Object> updatePurview(@RequestBody Map<String, Integer> params) {
     Map<String, Object> result = new HashMap<>();
-    if (this.userService.updateUserPurview(purview, uid) != 0) {
+    if (this.userService.updateUserPurview(params.get("purview"), params.get("uid")) != 0) {
+      result.put("code", 20000);
+      result.put("msg", "Update Success");
+    } else {
+      result.put("code", 50000);
+      result.put("msg", "Update Error");
+    }
+    return result;
+  }
+
+  @PostMapping("/updatepassword")
+  public Map<String, Object> updatePassword(@RequestBody Map<String, Object> params) {
+    Map<String, Object> result = new HashMap<>();
+    if (this.userService.updatePassword(params) != 0) {
       result.put("code", 20000);
       result.put("msg", "Update Success");
     } else {

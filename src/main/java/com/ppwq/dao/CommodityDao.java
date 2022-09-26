@@ -34,4 +34,6 @@ public interface CommodityDao {
   int deleteImage(@Param("cid") int cid, @Param("image") String image);
 
   int updateImage(@Param("images") List<String> images, @Param("cid") int cid);
+
+  int updateStock(@Param("params") Map<String, Object> params);
 }

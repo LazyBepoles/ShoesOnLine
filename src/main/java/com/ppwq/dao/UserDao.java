@@ -28,4 +28,6 @@ public interface UserDao {
   Page<User> searchUserByPage();
 
   int updateUserPurview(@Param("purview") int purview, @Param("uid") int uid);
+
+  int updatePassword(@Param("params") Map<String, Object> params);
 }

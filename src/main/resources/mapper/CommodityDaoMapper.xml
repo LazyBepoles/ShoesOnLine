@@ -82,7 +82,8 @@
 
     <update id="updateCommodityStatus">
         update commodity
-        set status = #{status} where cid = #{cid}
+        set status = #{status}
+        where cid = #{cid}
     </update>
 
     <select id="searchDetail" resultMap="detail">
@@ -183,5 +184,12 @@
           and b.bid = #{bid}
           and c.status != 0
     </select>
+
+    <update id="updateStock" parameterType="java.util.Map">
+        update shoes_size
+        set stock = #{params.stock}
+        where sid = #{params.sid}
+          and cid = #{params.cid}
+    </update>
 
 </mapper>

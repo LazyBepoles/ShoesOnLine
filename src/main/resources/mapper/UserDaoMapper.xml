@@ -46,9 +46,6 @@
             <if test="username != '' and username != null">
                 username = #{username},
             </if>
-            <if test="password != '' and password != null">
-                password = #{password},
-            </if>
             <if test="name != '' and name != null">
                 name = #{name},
             </if>
@@ -97,6 +94,10 @@
 
     <update id="updateUserPurview">
         update user set purview = #{purview} where uid = #{uid}
+    </update>
+
+    <update id="updatePassword" parameterType="java.util.Map">
+        update user set password = #{params.password} where uid = #{params.uid}
     </update>
 
 </mapper>

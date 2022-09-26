@@ -8,32 +8,32 @@
         <selectKey resultType="INTEGER" order="AFTER" keyProperty="oid">
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into `order` (ordernum, uid, aid, createtime, status,postage, price)
-        values (#{ordernum},#{uid},#{aid},#{createTime},#{status},#{postage},#{price})
+        insert into `order` (ordernum, uid, aid, createtime,postage, price)
+        values (#{ordernum},#{uid},#{aid},#{createTime},#{postage},#{price})
     </insert>
 
     <insert id="addNewOrderShoes" parameterType="ordershoes">
-        insert into order_shoes (oid, cid, cname, color, price, sid, size, number,image)
-        VALUES (#{oid}, #{cid}, #{cname}, #{color}, #{price}, #{sid}, #{size}, #{number},#{image})
+        insert into order_shoes (oid, cid, cname, color, price, sid, size, number, image)
+        VALUES (#{oid}, #{cid}, #{cname}, #{color}, #{price}, #{sid}, #{size}, #{number}, #{image})
     </insert>
 
     <update id="updateOrderStatus" parameterType="java.util.Map">
         update `order`
         <set>
+            <if test="params.aid != null">
+                aid = #{params.aid},
+            </if>
             <if test="params.status != null">
-                status = #{params.status}
+                status = #{params.status},
             </if>
-            <if test="params.paymentTime != null and params.paymentTime != ''">
-                paymenttime = #{params.paymentTime}
+            <if test="params.sendTime != null">
+                sendtime = #{params.sendTime},logistics = #{params.logistics},
             </if>
-            <if test="params.sendTime != null params.sendTime != ''">
-                sendtime = #{params.sendTime},logistics = #{params.logistics}
-            </if>
-            <if test="params.endTime != null params.endTime != ''">
-                endtime = #{params.endTime}
+            <if test="params.endTime != null">
+                endtime = #{params.endTime},
             </if>
             <if test="params.paymethod != null">
-                paymethod = #{params.paymethod}
+                paymethod = #{params.paymethod}, paymenttime = #{params.paymentTime},
             </if>
         </set>
         where oid = #{params.oid}
@@ -65,11 +65,21 @@
     </select>
 
     <select id="getDetail" resultMap="result">
-        select * from `order` where oid = #{oid}
+        select *
+        from `order`
+        where oid = #{oid}
     </select>
 
-    <select id="newOrder" resultType="order">
-        select * from `order`
+    <select id="noSendOrder" resultType="order">
+        select *
+        from `order`
+        where status = 20
+    </select>
+
+    <select id="refund" resultType="order">
+        select *
+        from `order`
+        where status = 50
     </select>
 
 </mapper>

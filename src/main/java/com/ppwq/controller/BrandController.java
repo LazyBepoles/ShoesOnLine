@@ -69,9 +69,9 @@ public class BrandController {
   }
 
   @PostMapping("/updatebrandstatus")
-  public Map<String, Object> updateStatus(int status, int bid) {
+  public Map<String, Object> updateStatus(@RequestBody Map<String, Integer> params) {
     Map<String, Object> result = new HashMap<>();
-    if (this.brandService.updateBrandStatus(status, bid) != 0) {
+    if (this.brandService.updateBrandStatus(params.get("status"), params.get("bid")) != 0) {
       result.put("code", 20000);
       result.put("msg", "Update Success");
     } else {

@@ -24,9 +24,8 @@ public class Order {
     private Date endTime;
     private BigDecimal postage;
     private BigDecimal price;
-    private Integer paymethod;
+    private String paymethod;
     private String logistics;
 
-    private List<String> images;
     List<OrderShoes> orderShoes;
 }

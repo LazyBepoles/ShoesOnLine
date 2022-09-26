@@ -144,16 +144,29 @@ public class CommodityController {
   }
 
   @PostMapping("/deleteimage")
-  public Map<String, Object> deleteImage(int cid,String image) {
+  public Map<String, Object> deleteImage(@RequestBody Map<String, Object> params) {
     Map<String, Object> result = new HashMap<>();
     String path = "E:\\Projects\\ShoesOnLine\\src\\main\\resources\\static\\images\\";
-    if (this.commodityService.deleteImage(cid,image) != 0) {
-      new File(path+image).delete();
+    if (this.commodityService.deleteImage((Integer) params.get("cid"), (String) params.get("image")) != 0) {
+      new File(path+(String) params.get("image")).delete();
       result.put("code", 20000);
       result.put("msg", "Delete Success");
     } else {
       result.put("code", 50000);
       result.put("msg", "Delete Error");
+    }
+    return result;
+  }
+
+  @PostMapping("/updatestock")
+  public Map<String, Object> updateStock(@RequestBody Map<String, Object> params) {
+    Map<String, Object> result = new HashMap<>();
+    if (this.commodityService.updateStock(params) != 0) {
+      result.put("code", 20000);
+      result.put("msg", "Update Success");
+    } else {
+      result.put("code", 50000);
+      result.put("msg", "Update Error");
     }
     return result;
   }

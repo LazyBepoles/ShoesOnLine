@@ -21,7 +21,9 @@
                c.checkable  checkable,
                g.name       cname,
                s.size       size,
-               c.image      cimage
+               c.image      cimage,
+               c.price      price,
+               c.image      image
         from car c,
              commodity g,
              size s
@@ -33,17 +35,23 @@
     <delete id="deleteCar">
         delete
         from car
-        where carid = #{carid}
+        where uid = #{uid}
     </delete>
 
     <update id="updateCar" parameterType="car">
         update car
-        set sid   = #{sid},
-            color = #{color},
-            num   = #{num},
-            price = #{price},
+        set sid       = #{sid},
+            num       = #{num},
             checkable = #{checkable}
         where carid = #{carid}
     </update>
+
+    <delete id="deleteOrderCar" parameterType="java.util.Map">
+        delete
+        from car
+        where uid = #{params.uid}
+          and cid = #{params.cid}
+          and sid = #{params.sid}
+    </delete>
 
 </mapper>

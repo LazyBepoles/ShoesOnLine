@@ -98,4 +98,9 @@ public class CommodityServiceImpl implements CommodityService {
   public int deleteImage(int cid, String image) {
     return this.commodityDao.deleteImage(cid, image);
   }
+
+  @Override
+  public int updateStock(Map<String, Object> params) {
+    return this.commodityDao.updateStock(params);
+  }
 }

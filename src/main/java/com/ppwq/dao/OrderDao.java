@@ -23,5 +23,7 @@ public interface OrderDao {
 
     Order getDetail(int oid);
 
-    Page<Order> newOrder();
+    Page<Order> noSendOrder();
+
+    Page<Order> refund();
 }

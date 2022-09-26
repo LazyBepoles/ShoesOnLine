@@ -23,4 +23,6 @@ public interface CommodityService {
   int updateImage(List<String> images, int cid);
 
   int deleteImage(int cid, String image);
+
+  int updateStock(Map<String, Object> params);
 }

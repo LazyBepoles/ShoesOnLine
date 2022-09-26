@@ -20,4 +20,6 @@ public interface UserService {
   Page<User> searchUserByPage();
 
   int updateUserPurview(int purview,int uid);
+
+  int updatePassword(Map<String, Object> params);
 }

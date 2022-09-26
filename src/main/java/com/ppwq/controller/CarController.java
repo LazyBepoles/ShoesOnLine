@@ -50,10 +50,10 @@ public class CarController {
     return result;
   }
 
-  @PostMapping("/deletecar/{carid}")
-  public Map<String, Object> deleteCar(@PathVariable int carid) {
+  @PostMapping("/deletecar/{uid}")
+  public Map<String, Object> deleteCar(@PathVariable int uid) {
     Map<String, Object> result = new HashMap<>();
-    if (this.carService.deleteCar(carid) != 0) {
+    if (this.carService.deleteCar(uid) != 0) {
       result.put("code", 20000);
       result.put("msg", "Delete Success");
     } else {
