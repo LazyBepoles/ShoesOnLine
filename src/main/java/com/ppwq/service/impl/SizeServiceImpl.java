@@ -1,5 +1,6 @@
 package com.ppwq.service.impl;
 
+import com.github.pagehelper.Page;
 import com.ppwq.dao.SizeDao;
 import com.ppwq.pojo.Size;
 import com.ppwq.service.SizeService;
@@ -20,5 +21,10 @@ public class SizeServiceImpl implements SizeService {
     @Override
     public int deleteSize(int id) {
         return this.sizeDao.deleteSize(id);
+    }
+
+    @Override
+    public Page<Size> getAllSize() {
+        return this.sizeDao.getAllSize();
     }
 }

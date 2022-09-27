@@ -34,4 +34,8 @@
           and cid = #{cid}
     </update>
 
+    <select id="getAllSize" resultType="size">
+        select * from size
+    </select>
+
 </mapper>

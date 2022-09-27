@@ -1,12 +1,10 @@
 package com.ppwq.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.ppwq.pojo.Size;
 import com.ppwq.service.SizeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,12 +13,12 @@ import java.util.Map;
 public class SizeController {
 
     @Autowired
-    private SizeService service;
+    private SizeService sizeService;
 
     @PostMapping("/addsize")
     public Map<String, Object> addSize(@RequestBody Size size) {
         Map<String, Object> result = new HashMap<>();
-        if (this.service.addNewSize(size) != 0) {
+        if (this.sizeService.addNewSize(size) != 0) {
             result.put("code", 20000);
             result.put("msg", "Insert Success");
         } else {
@@ -33,13 +31,23 @@ public class SizeController {
     @PostMapping("/deletesize/{sid}")
     public Map<String, Object> deleteSize(@PathVariable int sid) {
         Map<String, Object> result = new HashMap<>();
-        if (this.service.deleteSize(sid) != 0) {
+        if (this.sizeService.deleteSize(sid) != 0) {
             result.put("code", 20000);
             result.put("msg", "Delete Success");
         } else {
             result.put("code", 50000);
             result.put("msg", "Delete Error");
         }
+        return result;
+    }
+
+    @GetMapping("/getsize")
+    public Map<String, Object> searchSizeByPage(@RequestBody Map<String,Integer> params) {
+        PageHelper.startPage(params.get("pageNum"),params.get("pageSize"));
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 20000);
+        result.put("msg", "Search Result");
+        result.put("data", this.sizeService.getAllSize());
         return result;
     }
 }

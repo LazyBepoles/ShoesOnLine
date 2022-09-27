@@ -66,6 +66,7 @@ public class OrderServiceImpl implements OrderService {
       params.put("status", 20);
     } else if (params.get("send") != null) {
       params.put("sendTime", new Date());
+      params.put("logistics","顺丰快递");
       params.put("status", 30);
     } else if (params.get("complete") != null) {
       params.put("endTime", new Date());

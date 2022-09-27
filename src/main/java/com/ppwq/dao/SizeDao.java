@@ -1,5 +1,6 @@
 package com.ppwq.dao;
 
+import com.github.pagehelper.Page;
 import com.ppwq.pojo.Size;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -19,4 +20,6 @@ public interface SizeDao {
   int selectSize(@Param("sid") int sid, @Param("cid") int cid);
 
   int updateSizeNum(@Param("sid") int sid, @Param("cid") int cid, @Param("stock") int stock);
+
+  Page<Size> getAllSize();
 }
