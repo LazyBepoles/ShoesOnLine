@@ -51,14 +51,14 @@ public class CommodityController {
   }
 
   @GetMapping("/getcommodity")
-  public Map<String, Object> getCommodityByPage(@RequestBody Map<String, Object> params) {
+  public Map<String, Object> getCommodityByPage(@RequestParam Map<String, Object> params) {
+    int pageNum = Integer.parseInt((String) params.get("pageNum"));
+    int pageSize = Integer.parseInt((String) params.get("pageSize"));
+
     if (params.get("orderBy") != null) {
-      PageHelper.startPage(
-          (Integer) params.get("pageNum"),
-          (Integer) params.get("pageSize"),
-          (String) params.get("orderBy"));
+      PageHelper.startPage(pageNum, pageSize, (String) params.get("orderBy"));
     } else {
-      PageHelper.startPage((Integer) params.get("pageNum"), (Integer) params.get("pageSize"));
+      PageHelper.startPage(pageNum, pageSize);
     }
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
@@ -68,9 +68,9 @@ public class CommodityController {
   }
 
   @PostMapping("/updatecommoditystatus")
-  public Map<String, Object> updateStatus(int status,int cid) {
+  public Map<String, Object> updateStatus(int status, int cid) {
     Map<String, Object> result = new HashMap<>();
-    if (this.commodityService.updateCommodityStatus(status,cid) != 0) {
+    if (this.commodityService.updateCommodityStatus(status, cid) != 0) {
       result.put("code", 20000);
       result.put("msg", "Update Success");
     } else {
@@ -103,14 +103,15 @@ public class CommodityController {
   }
 
   @GetMapping("/fuzzyquery")
-  public Map<String, Object> fuzzyQuery(@RequestBody Map<String, Object> params) {
-    PageHelper.startPage((Integer) params.get("pageNum"), (Integer) params.get("pageSize"));
+  public Map<String, Object> fuzzyQuery(@RequestParam Map<String, Object> params) {
+    int pageNum = Integer.parseInt((String) params.get("pageNum"));
+    int pageSize = Integer.parseInt((String) params.get("pageSize"));
+
+    PageHelper.startPage(pageNum,pageSize);
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
     result.put("msg", "Search Success");
-    result.put(
-        "data",
-        this.commodityService.fuzzyQuery(params));
+    result.put("data", this.commodityService.fuzzyQuery(params));
     return result;
   }
 
@@ -133,7 +134,7 @@ public class CommodityController {
         e.printStackTrace();
       }
     }
-    if (this.commodityService.updateImage(images,cid) != 0) {
+    if (this.commodityService.updateImage(images, cid) != 0) {
       result.put("code", 20000);
       result.put("msg", "Update Success");
     } else {
@@ -147,8 +148,9 @@ public class CommodityController {
   public Map<String, Object> deleteImage(@RequestBody Map<String, Object> params) {
     Map<String, Object> result = new HashMap<>();
     String path = "E:\\Projects\\ShoesOnLine\\src\\main\\resources\\static\\images\\";
-    if (this.commodityService.deleteImage((Integer) params.get("cid"), (String) params.get("image")) != 0) {
-      new File(path+(String) params.get("image")).delete();
+    if (this.commodityService.deleteImage((Integer) params.get("cid"), (String) params.get("image"))
+        != 0) {
+      new File(path + (String) params.get("image")).delete();
       result.put("code", 20000);
       result.put("msg", "Delete Success");
     } else {

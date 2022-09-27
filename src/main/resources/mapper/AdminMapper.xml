@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ppwq.dao.AdminDao">
+
+    <select id="getAllAdmin" resultType="user">
+        select * from user where purview = 1 and role = 1
+    </select>
+
+    <update id="updateRole">
+        update user set role = #{role} where uid = #{uid}
+    </update>
+
+    <update id="updatePurview">
+        update user set purview = #{purview} where uid = #{uid}
+    </update>
+
+    <select id="queryAdmin" resultType="user"  parameterType="java.lang.Integer">
+        select * from user where uid = #{uid}
+    </select>
+
+    <insert id="insertAdmin" parameterType="user">
+        insert into user (username,password,name,sex,phone,email,purview,role) values (#{username},#{password},#{name},#{sex},#{phone},#{email},#{purview},#{role})
+    </insert>
+
+</mapper>

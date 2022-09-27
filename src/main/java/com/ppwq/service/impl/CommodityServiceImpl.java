@@ -74,10 +74,10 @@ public class CommodityServiceImpl implements CommodityService {
       else if (sexname.contains("女")) sex = 0;
     }
     if (params.get("bid") != null) {
-      brand = this.brandDao.searchBrandById((Integer) params.get("bid"));
+      brand = this.brandDao.searchBrandById(Integer.parseInt((String) params.get("bid")));
     }
     if (params.get("tid") != null) {
-      type = this.typeDao.searchTypeById((Integer) params.get("tid"));
+      type = this.typeDao.searchTypeById(Integer.parseInt((String) params.get("tid")));
     }
     if (brand != null) {
       params.put("bid", brand.getBid());

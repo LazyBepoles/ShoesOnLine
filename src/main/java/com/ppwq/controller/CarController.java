@@ -41,12 +41,16 @@ public class CarController {
   }
 
   @GetMapping("/getcar")
-  public Map<String, Object> getCar(@RequestBody Map<String, Object> params) {
-    PageHelper.startPage((Integer) params.get("pageNum"), (Integer) params.get("pageSize"));
+  public Map<String, Object> getCar(@RequestParam Map<String, Object> params) {
+    int pageNum = Integer.parseInt((String) params.get("pageNum"));
+    int pageSize = Integer.parseInt((String) params.get("pageSize"));
+    int uid = Integer.parseInt((String) params.get("uid"));
+
+    PageHelper.startPage(pageNum, pageSize);
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
     result.put("msg", "Search Success");
-    result.put("data", this.carService.getCar((Integer) params.get("uid")));
+    result.put("data", this.carService.getCar(uid));
     return result;
   }
 

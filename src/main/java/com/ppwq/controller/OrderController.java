@@ -27,14 +27,14 @@ public class OrderController {
   }
 
   @GetMapping("/searchorder")
-  public Map<String, Object> searchOrder(@RequestBody Map<String, Object> params) {
+  public Map<String, Object> searchOrder(@RequestParam Map<String, Object> params) {
+    int pageNum = Integer.parseInt((String) params.get("pageNum"));
+    int pageSize = Integer.parseInt((String) params.get("pageSize"));
+
     if (params.get("orderBy") != null) {
-      PageHelper.startPage(
-          (Integer) params.get("pageNum"),
-          (Integer) params.get("pageSize"),
-          (String) params.get("orderBy"));
+      PageHelper.startPage(pageNum, pageSize, (String) params.get("orderBy"));
     } else {
-      PageHelper.startPage((Integer) params.get("pageNum"), (Integer) params.get("pageSize"));
+      PageHelper.startPage(pageNum, pageSize);
     }
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
@@ -66,24 +66,24 @@ public class OrderController {
     return result;
   }
 
-//  @GetMapping("/getnosend")
-//  public Map<String, Object> getNoSend(@RequestBody Map<String, Object> params) {
-//    PageHelper.startPage((Integer) params.get("pageNum"), (Integer) params.get("pageSize"));
-//    Map<String, Object> result = new HashMap<>();
-//    result.put("code", 20000);
-//    result.put("msg", "Search Success");
-//    result.put("data", this.orderService.noSendOrder());
-//    return result;
-//  }
-//
-//  @GetMapping("/getrefund")
-//  public Map<String, Object> getRefund(@RequestBody Map<String, Object> params) {
-//    PageHelper.startPage((Integer) params.get("pageNum"), (Integer) params.get("pageSize"));
-//    Map<String, Object> result = new HashMap<>();
-//    result.put("code", 20000);
-//    result.put("msg", "Search Success");
-//    result.put("data", this.orderService.refund());
-//    return result;
-//  }
+  //  @GetMapping("/getnosend")
+  //  public Map<String, Object> getNoSend(@RequestBody Map<String, Object> params) {
+  //    PageHelper.startPage((Integer) params.get("pageNum"), (Integer) params.get("pageSize"));
+  //    Map<String, Object> result = new HashMap<>();
+  //    result.put("code", 20000);
+  //    result.put("msg", "Search Success");
+  //    result.put("data", this.orderService.noSendOrder());
+  //    return result;
+  //  }
+  //
+  //  @GetMapping("/getrefund")
+  //  public Map<String, Object> getRefund(@RequestBody Map<String, Object> params) {
+  //    PageHelper.startPage((Integer) params.get("pageNum"), (Integer) params.get("pageSize"));
+  //    Map<String, Object> result = new HashMap<>();
+  //    result.put("code", 20000);
+  //    result.put("msg", "Search Success");
+  //    result.put("data", this.orderService.refund());
+  //    return result;
+  //  }
 
 }

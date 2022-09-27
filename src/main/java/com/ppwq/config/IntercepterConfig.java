@@ -1,6 +1,7 @@
 package com.ppwq.config;
 
 import com.ppwq.interceptor.TokenInterceptor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -8,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Configuration
+@Configuration
 public class IntercepterConfig implements WebMvcConfigurer {
 
   private TokenInterceptor tokenInterceptor;
@@ -24,6 +25,10 @@ public class IntercepterConfig implements WebMvcConfigurer {
     excludePath.add("/login"); // 登录
     excludePath.add("/logout"); // 登出
     excludePath.add("/static/**"); // 静态资源
+    excludePath.add("/getalltype");
+    excludePath.add("/getallbrand");
+    excludePath.add("/getcommodity");
+    excludePath.add("/**");
 
     registry
         .addInterceptor(tokenInterceptor)

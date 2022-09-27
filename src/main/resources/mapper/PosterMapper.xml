@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ppwq.dao.PosterDao">
+
+    <insert id="insertPoster" parameterType="poster">
+        <selectKey resultType="INTEGER" order="AFTER" keyProperty="adid">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into poster (postername) values #{postername}
+    </insert>
+
+    <delete id="delete">
+        delete
+        from poster
+        where adid = #{adid}
+    </delete>
+
+    <update id="insertadpicname">
+        update poster set adpicname = #{filename} where adid = #{adid}
+    </update>
+
+    <select id="getAllad" resultType="poster">
+        select *
+        from poster
+    </select>
+
+</mapper>

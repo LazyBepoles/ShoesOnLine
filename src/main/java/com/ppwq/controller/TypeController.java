@@ -41,7 +41,7 @@ public class TypeController {
   }
 
   @GetMapping("/searchtype")
-  public Map<String, Object> searchTypeByName(@RequestBody Map<String,Object> params) {
+  public Map<String, Object> searchTypeByName(@RequestParam Map<String, Object> params) {
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
     result.put("msg", "Search Result");
@@ -59,8 +59,11 @@ public class TypeController {
   }
 
   @GetMapping("/gettype")
-  public Map<String, Object> searchTypeByPage(@RequestBody Map<String,Integer> params) {
-    PageHelper.startPage(params.get("pageNum"),params.get("pageSize"));
+  public Map<String, Object> searchTypeByPage(@RequestParam Map<String, Object> params) {
+    int pageNum = Integer.parseInt((String) params.get("pageNum"));
+    int pageSize = Integer.parseInt((String) params.get("pageSize"));
+
+    PageHelper.startPage(pageNum, pageSize);
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
     result.put("msg", "Search Result");
@@ -69,12 +72,12 @@ public class TypeController {
   }
 
   @PostMapping("/updatetypestatus")
-  public Map<String, Object> updateStatus(@RequestBody Map<String, Integer> params){
+  public Map<String, Object> updateStatus(@RequestBody Map<String, Integer> params) {
     Map<String, Object> result = new HashMap<>();
-    if (this.typeService.updateTypeStatus(params.get("status"),params.get("tid"))!=0){
+    if (this.typeService.updateTypeStatus(params.get("status"), params.get("tid")) != 0) {
       result.put("code", 20000);
       result.put("msg", "Update Success");
-    }else {
+    } else {
       result.put("code", 50000);
       result.put("msg", "Update Error");
     }

@@ -16,8 +16,11 @@ public class UserController {
   @Autowired private UserService userService;
 
   @GetMapping("/getuser")
-  public Map<String, Object> getUser(@RequestBody Map<String, Integer> params) {
-    PageHelper.startPage(params.get("pageNum"), params.get("pageSize"));
+  public Map<String, Object> getUser(@RequestParam Map<String, Object> params) {
+    int pageNum = Integer.parseInt((String) params.get("pageNum"));
+    int pageSize = Integer.parseInt((String) params.get("pageSize"));
+
+    PageHelper.startPage(pageNum, pageSize);
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
     result.put("msg", "Search Success");
@@ -26,8 +29,11 @@ public class UserController {
   }
 
   @GetMapping("/searchuser")
-  public Map<String, Object> searchUser(@RequestBody Map<String, Object> params) {
-    PageHelper.startPage((Integer) params.get("pageNum"), (Integer) params.get("pageSize"));
+  public Map<String, Object> searchUser(@RequestParam Map<String, Object> params) {
+    int pageNum = Integer.parseInt((String) params.get("pageNum"));
+    int pageSize = Integer.parseInt((String) params.get("pageSize"));
+
+    PageHelper.startPage(pageNum, pageSize);
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
     result.put("msg", "Search Result");
@@ -71,10 +77,11 @@ public class UserController {
   }
 
   @GetMapping("/login")
-  public Map<String, Object> login(@RequestBody Map<String, String> params) {
+  public Map<String, Object> login(@RequestParam Map<String, Object> params) {
     Map<String, Object> result = new HashMap<>();
     String token = null;
-    User user = this.userService.login(params.get("account"), params.get("password"));
+    User user =
+        this.userService.login((String) params.get("account"), (String) params.get("password"));
     if (user != null) {
       token = TokenUtil.sign(user);
       result.put("code", 20000);

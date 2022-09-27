@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ppwq.dao.SellerDao">
+
+    <insert id="insertSeller" parameterType="seller">
+        <selectKey resultType="INTEGER" order="AFTER" keyProperty="sellerid">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into seller (sellername, sellerurl) values (#{sellername}, #{sellerurl})
+    </insert>
+
+    <delete id="delete">
+        delete
+        from seller
+        where sellerid = #{sellerid}
+    </delete>
+
+    <update id="insertpicname">
+        update seller set sellerpicname = #{filename} where sellerid = #{sellerid}
+    </update>
+
+    <select id="getAll" resultType="seller">
+        select *
+        from seller
+    </select>
+
+</mapper>

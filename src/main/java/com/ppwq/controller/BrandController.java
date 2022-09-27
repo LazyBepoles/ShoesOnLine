@@ -41,7 +41,7 @@ public class BrandController {
   }
 
   @GetMapping("/searchbrand")
-  public Map<String, Object> searchBrandByName(@RequestBody Map<String, Object> params) {
+  public Map<String, Object> searchBrandByName(@RequestParam Map<String, Object> params) {
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
     result.put("msg", "Search Success");
@@ -59,8 +59,11 @@ public class BrandController {
   }
 
   @GetMapping("/getbrand")
-  public Map<String, Object> searchBrandByPage(@RequestBody Map<String, Integer> params) {
-    PageHelper.startPage(params.get("pageNum"), params.get("pageSize"));
+  public Map<String, Object> searchBrandByPage(@RequestParam Map<String, Object> params) {
+    int pageNum = Integer.parseInt((String) params.get("pageNum"));
+    int pageSize = Integer.parseInt((String) params.get("pageSize"));
+
+    PageHelper.startPage(pageNum, pageSize);
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
     result.put("msg", "Search Success");
