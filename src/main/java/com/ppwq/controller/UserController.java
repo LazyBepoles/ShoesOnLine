@@ -41,12 +41,12 @@ public class UserController {
     return result;
   }
 
-  @GetMapping("/searchuser/{id}")
-  public Map<String, Object> getUser(@PathVariable int id) {
+  @GetMapping("/searchuser/{uid}")
+  public Map<String, Object> getUser(@PathVariable int uid) {
     Map<String, Object> result = new HashMap<>();
     result.put("code", 20000);
     result.put("msg", "Search Result");
-    result.put("data", this.userService.searchUserById(id));
+    result.put("data", this.userService.searchUserById(uid));
     return result;
   }
 

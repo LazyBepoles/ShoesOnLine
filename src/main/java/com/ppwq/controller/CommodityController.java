@@ -20,29 +20,13 @@ public class CommodityController {
   @Autowired private CommodityService commodityService;
 
   @PostMapping("/addcommodity")
-  public Map<String, Object> addCommodity(
-      @RequestPart("params") Map<String, Object> params,
-      @RequestPart("files") MultipartFile[] files) {
-    List<String> images = new ArrayList<>();
+  public Map<String, Object> addCommodity(@RequestBody Map<String, Object> params) {
     Map<String, Object> result = new HashMap<>();
-    String path = "E:\\Projects\\ShoesOnLine\\src\\main\\resources\\static\\images\\";
-    File realPath = new File(path);
-    if (!realPath.exists()) {
-      realPath.mkdir();
-    }
-    for (MultipartFile file : files) {
-      String fileName = file.getOriginalFilename();
-      images.add(fileName);
-      try {
-        file.transferTo(new File(path + fileName));
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-    params.put("images", images);
-    if (this.commodityService.addNewCommodity(params) != 0) {
+    int cid = this.commodityService.addNewCommodity(params);
+    if (cid != 0) {
       result.put("code", 20000);
       result.put("msg", "Insert Success");
+      result.put("cid",cid);
     } else {
       result.put("code", 50000);
       result.put("msg", "Insert Error");

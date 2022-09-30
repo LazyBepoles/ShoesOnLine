@@ -81,9 +81,9 @@
     <select id="login" resultType="user">
         select *
         from user
-        where username = #{account}
-           or phone = #{account}
-           or email = #{account} and password = #{password} and purview != 0
+        where (username = #{account} and password = #{password} and purview != 0)
+           or (phone = #{account} and password = #{password} and purview != 0)
+           or (email = #{account} and password = #{password} and purview != 0)
     </select>
 
     <select id="searchUserByPage" resultType="user">
