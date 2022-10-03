@@ -34,6 +34,35 @@ public class CommodityController {
     return result;
   }
 
+  @PostMapping("/addimages")
+  public Map<String, Object> addImage(
+          @RequestPart("files") MultipartFile[] files, @RequestPart("cid") int cid) {
+    List<String> images = new ArrayList<>();
+    Map<String, Object> result = new HashMap<>();
+    String path = "E:\\Projects\\ShoesOnLine\\src\\main\\resources\\static\\images\\";
+    File realPath = new File(path);
+    if (!realPath.exists()) {
+      realPath.mkdir();
+    }
+    for (MultipartFile file : files) {
+      String fileName = file.getOriginalFilename();
+      images.add(fileName);
+      try {
+        file.transferTo(new File(path + fileName));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    if (this.commodityService.updateImage(images, cid) != 0) {
+      result.put("code", 20000);
+      result.put("msg", "Insert Success");
+    } else {
+      result.put("code", 50000);
+      result.put("msg", "Insert Error");
+    }
+    return result;
+  }
+
   @GetMapping("/getcommodity")
   public Map<String, Object> getCommodityByPage(@RequestParam Map<String, Object> params) {
     int pageNum = Integer.parseInt((String) params.get("pageNum"));

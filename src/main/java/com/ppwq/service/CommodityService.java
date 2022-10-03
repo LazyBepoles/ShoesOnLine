@@ -14,7 +14,7 @@ public interface CommodityService {
 
   int updateCommodity(Commodity commodity);
 
-  int updateCommodityStatus(int status,int cid);
+  int updateCommodityStatus(int status, int cid);
 
   Commodity searchDetail(int cid);
 
@@ -25,4 +25,6 @@ public interface CommodityService {
   int deleteImage(int cid, String image);
 
   int updateStock(Map<String, Object> params);
+
+  int addImages(List<String> images, int cid);
 }

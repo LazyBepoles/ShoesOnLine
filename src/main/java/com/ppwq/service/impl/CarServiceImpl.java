@@ -26,12 +26,17 @@ public class CarServiceImpl implements CarService {
   }
 
   @Override
-  public int deleteCar(int carid) {
-    return this.deleteCar(carid);
+  public int deleteUserCar(int carid) {
+    return this.carDao.deleteUserCar(carid);
   }
 
   @Override
   public int updateCar(Car car) {
     return this.carDao.updateCar(car);
+  }
+
+  @Override
+  public int deleterCar(int carid) {
+    return this.carDao.deleteCar(carid);
   }
 }

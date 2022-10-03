@@ -18,6 +18,8 @@ public interface CarDao {
 
   int deleteCar(int carid);
 
+  int deleteUserCar(int uid);
+
   int updateCar(Car car);
 
   int deleteOrderCar(@Param("params") Map<String, Object> params);

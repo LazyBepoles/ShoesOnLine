@@ -29,14 +29,19 @@ public class CommodityServiceImpl implements CommodityService {
   @Override
   public int addNewCommodity(Map<String, Object> params) {
     params.put("createTime", new Date());
-//    int result = this.commodityDao.addNewCommodity(params);
+    int result = this.commodityDao.addNewCommodity(params);
     Map<String, Object> map = (Map<String, Object>) params.get("size");
     for (Map.Entry<String, Object> entry : map.entrySet()) {
       this.sizeDao.addNewCommodity(entry.getKey(), (Integer) params.get("cid"), entry.getValue());
     }
-//    this.commodityDao.addCommodityImages(
-//        (List<String>) params.get("images"), (Integer) params.get("cid"));
+    //    this.commodityDao.addCommodityImages(
+    //        (List<String>) params.get("images"), (Integer) params.get("cid"));
     return (int) params.get("cid");
+  }
+
+  @Override
+  public int addImages(List<String> images, int cid) {
+    return this.commodityDao.addCommodityImages(images, cid);
   }
 
   @Override
@@ -50,8 +55,8 @@ public class CommodityServiceImpl implements CommodityService {
   }
 
   @Override
-  public int updateCommodityStatus(int status,int cid) {
-    return this.commodityDao.updateCommodityStatus(status,cid);
+  public int updateCommodityStatus(int status, int cid) {
+    return this.commodityDao.updateCommodityStatus(status, cid);
   }
 
   @Override

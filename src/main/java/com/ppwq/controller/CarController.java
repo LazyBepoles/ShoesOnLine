@@ -54,10 +54,23 @@ public class CarController {
     return result;
   }
 
-  @PostMapping("/deletecar/{uid}")
+  @PostMapping("/clearcar/{uid}")
   public Map<String, Object> deleteCar(@PathVariable int uid) {
     Map<String, Object> result = new HashMap<>();
-    if (this.carService.deleteCar(uid) != 0) {
+    if (this.carService.deleteUserCar(uid) != 0) {
+      result.put("code", 20000);
+      result.put("msg", "Delete Success");
+    } else {
+      result.put("code", 50000);
+      result.put("msg", "Delete Error");
+    }
+    return result;
+  }
+
+  @PostMapping("/deletecar/{carid}")
+  public Map<String, Object> deleteUserCar(@PathVariable int carid) {
+    Map<String, Object> result = new HashMap<>();
+    if (this.carService.deleterCar(carid) != 0) {
       result.put("code", 20000);
       result.put("msg", "Delete Success");
     } else {

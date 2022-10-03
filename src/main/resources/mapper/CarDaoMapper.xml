@@ -32,10 +32,16 @@
           and c.cid = g.cid
     </select>
 
-    <delete id="deleteCar">
+    <delete id="deleteUserCar">
         delete
         from car
         where uid = #{uid}
+    </delete>
+
+    <delete id="deleteCar">
+        delete
+        from car
+        where carid = #{carid}
     </delete>
 
     <update id="updateCar" parameterType="car">

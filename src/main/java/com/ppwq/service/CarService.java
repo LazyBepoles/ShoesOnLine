@@ -9,7 +9,9 @@ public interface CarService {
 
     Page<Car> getCar(int uid);
 
-    int deleteCar(int carid);
+    int deleteUserCar(int uid);
+
+    int deleterCar(int carid);
 
     int updateCar(Car car);
 }
