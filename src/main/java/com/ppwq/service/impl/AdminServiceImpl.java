@@ -12,26 +12,31 @@ import java.util.List;
 @Service
 public class AdminServiceImpl implements AdminService {
 
-    @Autowired
-    private AdminDao adminDao;
+  @Autowired private AdminDao adminDao;
 
-    public int updateRole(int uid,int role){return this.adminDao.updateRole(uid,role);}
+  public int updateRole(int uid, int role) {
+    return this.adminDao.updateRole(uid, role);
+  }
 
-    public int updatePurview(int uid,int purview){return this.adminDao.updatePurview(uid, purview);}
+  public int updatePurview(int uid, int purview) {
+    return this.adminDao.updatePurview(uid, purview);
+  }
 
-    public int insertAdmin(User admin, Date time){
-        admin.setCreateTime(time);
-        return this.adminDao.insertAdmin(admin);}
+  public int insertAdmin(User admin, Date time) {
+    admin.setCreateTime(time);
+    admin.setRole(2);
+    return this.adminDao.insertAdmin(admin);
+  }
 
-    public User queryAdmin(int uid) {
-        User users = this.adminDao.queryAdmin(uid);
-        System.out.println(users);
-        return users;
-    }
+  public User queryAdmin(int uid) {
+    User users = this.adminDao.queryAdmin(uid);
+    System.out.println(users);
+    return users;
+  }
 
-    public List<User> getAllAdmin() {
-        List<User> users = this.adminDao.getAllAdmin();
-        System.out.println(users);
-        return users;
-    }
+  public List<User> getAllAdmin() {
+    List<User> users = this.adminDao.getAllAdmin();
+    System.out.println(users);
+    return users;
+  }
 }

@@ -5,9 +5,9 @@
 <mapper namespace="com.ppwq.dao.CarDao">
 
     <insert id="addIntoCar" parameterType="car">
-        insert into car (uid, cid, sid, color, num, price, createtime, image)
+        insert into car (uid, cid, sid, color, num, price, createtime, image,checkable)
         values ( #{uid}, #{cid}, #{sid}, #{color}, #{num}, #{price}
-               , #{createTime}, #{image})
+               , #{createTime}, #{image},#{checkable})
     </insert>
 
     <select id="getCar" resultType="car">

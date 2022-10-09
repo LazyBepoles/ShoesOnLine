@@ -16,9 +16,11 @@ public class OrderController {
   @PostMapping("/addorder")
   public Map<String, Object> addOrder(@RequestBody Map<String, Object> params) {
     Map<String, Object> result = new HashMap<>();
-    if (this.orderService.addNewOrder(params) != 0) {
+    int oid = this.orderService.addNewOrder(params);
+    if (oid != 0) {
       result.put("code", 20000);
       result.put("msg", "Insert Success");
+      result.put("oid", oid);
     } else {
       result.put("code", 50000);
       result.put("msg", "Error Success");

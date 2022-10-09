@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
         this.carDao.deleteOrderCar(pmap);
       }
     }
-    return result;
+    return order.getOid();
   }
 
   @Override
